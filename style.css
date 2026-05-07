@@ -130,22 +130,23 @@ body {
     border-radius: 50%;
     min-width: 20px;
     height: 20px;
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
     font-size: 0.7rem;
     font-weight: bold;
-    margin-left: auto;
-    transition: none;
+    line-height: 1;
+    padding: 0;
+    box-sizing: border-box;
     position: absolute;
     top: 5px;
     right: 5px;
 }
 
+
 .sidebar:hover .sidebar-badge {
     position: static;
     margin-left: auto;
-    display: flex;
 }
 
 /* ========== CYBER CARDS ========== */
