@@ -33,7 +33,6 @@ if (exploreBtn) {
     exploreBtn.addEventListener('click', () => {
         // Reset danh mục về "Tất cả"
         state.selectedCategories = [];
-        updateFilterUI();
         // Chuyển sang chế độ cửa hàng
         showStoreView();
     });
@@ -50,6 +49,8 @@ function showStoreView() {
 
     // Bỏ active "Trang chủ" (nếu có)
     navItems.forEach(i => i.classList.remove('active'));
+
+    updateFilterUI();
 
     // Fetch và render nếu cần
     if (state.allProducts.length === 0) {
@@ -86,6 +87,10 @@ function goToLanding() {
         // Tắt noise khi ở landing
         if (globalNoise) globalNoise.style.display = 'none';
     }
+}
+
+if (logo) {
+    logo.addEventListener('click', goToLanding);
 }
 
 // ========== KHÔI PHỤC TRẠNG THÁI NẾU VỪA LOGIN XONG ==========
