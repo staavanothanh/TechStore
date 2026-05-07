@@ -143,7 +143,6 @@ body {
     right: 5px;
 }
 
-
 .sidebar:hover .sidebar-badge {
     position: static;
     margin-left: auto;
@@ -240,6 +239,12 @@ body {
     gap: 15px;
     flex: 1 1 auto;
     justify-content: center;
+    transition: opacity 0.3s ease;
+}
+
+.search-sort.sort-hidden {
+    opacity: 0;
+    pointer-events: none;
 }
 
 .search-bar {
@@ -334,6 +339,7 @@ body {
 .app-layout {
     display: flex;
     min-height: calc(100vh - 90px);
+    position: relative;
 }
 
 .main-content {
@@ -959,6 +965,85 @@ body {
     font-family: var(--font-mono);
 }
 
+/* ========== LANDING VIEW ========== */
+.landing-view {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    background: url('images/theme.png') no-repeat center center / cover;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+.landing-view::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.slogan-wrapper {
+    position: relative;
+    z-index: 2;
+    margin-left: max(10%, 80px);
+    max-width: 500px;
+    color: white;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.slogan-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 3.6rem;
+    font-weight: 700;
+    line-height: 1.3;
+    text-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 40px rgba(255, 0, 255, 0.6);
+    margin-bottom: 2rem;
+    animation: glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 40px rgba(255, 0, 255, 0.6);
+    }
+
+    to {
+        text-shadow: 0 0 25px rgba(0, 255, 255, 1), 0 0 60px rgba(255, 0, 255, 0.8);
+    }
+}
+
+.btn-landing {
+    padding: 15px 35px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border: 2px solid #00dbe9;
+    background: transparent;
+    color: #00dbe9;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Space Grotesk', sans-serif;
+    backdrop-filter: blur(5px);
+    background: rgba(0, 219, 233, 0.1);
+}
+
+.btn-landing:hover {
+    background: #00dbe9;
+    color: #020817;
+    box-shadow: 0 0 25px rgba(0, 219, 233, 0.6);
+}
+
+/* Ẩn landing view khi vào chế độ cửa hàng */
+.landing-view.hidden {
+    display: none;
+}
+
 /* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
     body {
@@ -991,5 +1076,26 @@ body {
     .product-popup.detail-modal {
         width: 95vw;
         padding: 20px;
+    }
+
+    /* Landing responsive */
+    .landing-view {
+        justify-content: center;
+        background-position: center;
+    }
+
+    .slogan-wrapper {
+        margin-left: 0;
+        text-align: center;
+        padding: 0 15px;
+    }
+
+    .slogan-text {
+        font-size: 2.4rem;
+    }
+
+    .btn-landing {
+        padding: 12px 25px;
+        font-size: 1rem;
     }
 }

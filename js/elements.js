@@ -22,3 +22,4 @@ export const successModal = document.getElementById('success-modal');
 export const checkoutModal = document.getElementById('checkout-modal');
 export const checkoutConfirmBtn = document.getElementById('checkout-confirm-btn');
 export const checkoutCancelBtn = document.getElementById('checkout-cancel-btn');
+export const landingView = document.getElementById('landing-view');

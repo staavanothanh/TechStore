@@ -2,7 +2,8 @@ import { state } from './state.js';
 import {
     productGrid,
     paginationEl,
-    filterItems
+    filterItems,
+    landingView       // <-- import landingView
 } from './elements.js';
 import { getProcessedProducts } from './products.js';
 import { handleMouseMove, handleMouseLeave } from './effects.js';
@@ -79,12 +80,19 @@ function renderPagination(totalPages) {
 }
 
 export function updateFilterUI() {
+    const isLandingVisible = landingView && !landingView.classList.contains('hidden');
+
     filterItems.forEach(item => {
         const cat = item.dataset.category;
-        if (cat === 'all') {
-            item.classList.toggle('active', state.selectedCategories.length === 0);
+        if (isLandingVisible) {
+            // Khi đang ở landing, không filter nào được active
+            item.classList.remove('active');
         } else {
-            item.classList.toggle('active', state.selectedCategories.includes(cat));
+            if (cat === 'all') {
+                item.classList.toggle('active', state.selectedCategories.length === 0);
+            } else {
+                item.classList.toggle('active', state.selectedCategories.includes(cat));
+            }
         }
     });
 }

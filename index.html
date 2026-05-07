@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/logo.png" type="image/png">
     <title>Tech Store | Home</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,7 +60,7 @@
     <div class="sticky-nav">
         <header class="header">
             <div class="header-left">
-                <div class="logo">
+                <div class="logo" id="logo" style="cursor: pointer;">
                     <span class="logo-text">TECH<span class="logo-accent">STORE</span></span>
                 </div>
             </div>
@@ -88,6 +89,14 @@
     </div>
 
     <div class="app-layout">
+        <div id="landing-view" class="landing-view">
+            <div class="landing-container">
+                <div class="slogan-wrapper">
+                    <h1 class="slogan-text">Sáng Tạo<br>Không Giới Hạn<br>Cùng TechStore.</h1>
+                    <button id="explore-btn" class="btn-landing">Khám phá cửa hàng</button>
+                </div>
+            </div>
+        </div>
         <aside id="cart-sidebar" class="cart-sidebar">
             <div class="cart-header">
                 <h2 class="cart-title">Giỏ hàng</h2>
