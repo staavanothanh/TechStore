@@ -27,7 +27,7 @@
         errorEl.textContent = 'Lỗi tải dữ liệu đăng nhập.';
         return;
     }
-// Xử lý đăng nhập
+    // Xử lý đăng nhập
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const username = usernameInput.value.trim();
