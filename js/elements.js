@@ -1,0 +1,24 @@
+// elements.js – DOM elements dùng chung
+export const productGrid = document.getElementById('product-grid');
+export const loadingEl = document.getElementById('loading-indicator');
+export const paginationEl = document.getElementById('pagination');
+export const searchInput = document.getElementById('search-input');
+export const searchBtn = document.getElementById('search-btn');
+export const sortSelect = document.getElementById('sort-select');
+export const userArea = document.getElementById('user-area');
+export const sidebar = document.getElementById('sidebar');
+export const sidebarCartTrigger = document.getElementById('cart-sidebar-trigger');
+export const sidebarCartBadge = document.getElementById('sidebar-cart-badge');
+export const navItems = document.querySelectorAll('.sidebar-item[data-page]');
+export const filterItems = document.querySelectorAll('.filter-item[data-category]');
+export const cartSidebar = document.getElementById('cart-sidebar');
+export const closeCartBtn = document.getElementById('close-cart');
+export const cartItemsContainer = document.getElementById('cart-items');
+export const cartTotalAmount = document.getElementById('cart-total-amount');
+export const checkoutBtn = document.getElementById('checkout-btn');
+export const detailOverlay = document.getElementById('detail-overlay');
+export const productPopup = document.getElementById('product-popup');
+export const successModal = document.getElementById('success-modal');
+export const checkoutModal = document.getElementById('checkout-modal');
+export const checkoutConfirmBtn = document.getElementById('checkout-confirm-btn');
+export const checkoutCancelBtn = document.getElementById('checkout-cancel-btn');

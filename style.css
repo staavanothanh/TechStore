@@ -130,7 +130,7 @@ body {
     border-radius: 50%;
     min-width: 20px;
     height: 20px;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     font-size: 0.7rem;
@@ -145,6 +145,7 @@ body {
 .sidebar:hover .sidebar-badge {
     position: static;
     margin-left: auto;
+    display: flex;
 }
 
 /* ========== CYBER CARDS ========== */
