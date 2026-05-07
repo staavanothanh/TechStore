@@ -16,7 +16,7 @@ import {
     successModal
 } from './elements.js';
 import { updateAuthUI, requireAuth } from './auth-ui.js';
-import { updateCartUI } from './cart.js';
+import { updateCartUI, saveCart } from './cart.js';
 import { fetchAllProducts } from './products.js';
 import { renderPage, updateFilterUI } from './ui.js';
 
@@ -88,7 +88,8 @@ checkoutBtn.addEventListener('click', () => {
 });
 
 checkoutConfirmBtn.addEventListener('click', () => {
-    state.cart.length = 0;   // Xóa mảng
+    state.cart = [];   // Xóa mảng
+    saveCart();
     updateCartUI();
     cartSidebar.classList.remove('open');
     checkoutModal.classList.add('hidden');
