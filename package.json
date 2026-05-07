@@ -1,0 +1,7 @@
+{
+  "name": "techstore",
+  "private": true,
+  "scripts": {
+    "test": "node --test"
+  }
+}

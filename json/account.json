@@ -1,0 +1,82 @@
+[
+  {
+    "id": "USR-001",
+    "username": "admin",
+    "password": "admin123",
+    "fullName": "System Administrator",
+    "email": "admin@cybercore.net",
+    "role": "admin"
+  },
+  {
+    "id": "USR-002",
+    "username": "neo_hacker",
+    "password": "matrix99",
+    "fullName": "Thomas Anderson",
+    "email": "neo@matrix.com",
+    "role": "user"
+  },
+  {
+    "id": "USR-003",
+    "username": "lucy_netrunner",
+    "password": "moon2077",
+    "fullName": "Lucy Kushinada",
+    "email": "lucy@edgerunners.io",
+    "role": "user"
+  },
+  {
+    "id": "USR-004",
+    "username": "david_m",
+    "password": "sandevistan",
+    "fullName": "David Martinez",
+    "email": "david@nightcity.com",
+    "role": "user"
+  },
+  {
+    "id": "USR-005",
+    "username": "tech_guru",
+    "password": "password123",
+    "fullName": "Alex Chen",
+    "email": "alex.tech@gmail.com",
+    "role": "user"
+  },
+  {
+    "id": "USR-006",
+    "username": "sarah_c",
+    "password": "skynet00",
+    "fullName": "Sarah Connor",
+    "email": "sarah@resistance.org",
+    "role": "user"
+  },
+  {
+    "id": "USR-007",
+    "username": "john_doe",
+    "password": "qwertyuiop",
+    "fullName": "John Doe",
+    "email": "johndoe@example.com",
+    "role": "user"
+  },
+  {
+    "id": "USR-008",
+    "username": "alice_wonder",
+    "password": "alice2026",
+    "fullName": "Alice Liddell",
+    "email": "alice@wonderland.net",
+    "role": "user"
+  },
+  {
+    "id": "USR-009",
+    "username": "bob_builder",
+    "password": "buildit99",
+    "fullName": "Bob Smith",
+    "email": "bob.smith@construct.com",
+    "role": "user"
+  },
+  {
+    "id": "USR-010",
+    "username": "guest_user",
+    "password": "guest",
+    "fullName": "Guest Account",
+    "email": "guest@cybercore.net",
+    "role": "user"
+  }
+]

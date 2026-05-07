@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Store | Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="global-noise"></div>
+
+    <!-- Sidebar Navigation bên trái -->
+    <nav id="sidebar" class="sidebar">
+        <ul class="sidebar-menu">
+            <!-- Các mục điều hướng -->
+            <li class="sidebar-item active" data-page="home">
+                <span class="sidebar-icon"><i data-lucide="home"></i></span>
+                <span class="sidebar-text">Trang chủ</span>
+            </li>
+            <!-- Các mục lọc sản phẩm -->
+            <li class="sidebar-item filter-item active" data-category="all">
+                <span class="sidebar-icon"><i data-lucide="layers"></i></span>
+                <span class="sidebar-text">Tất cả</span>
+            </li>
+            <li class="sidebar-item filter-item" data-category="smartphone">
+                <span class="sidebar-icon"><i data-lucide="smartphone"></i></span>
+                <span class="sidebar-text">Điện thoại</span>
+            </li>
+            <li class="sidebar-item filter-item" data-category="laptop">
+                <span class="sidebar-icon"><i data-lucide="laptop"></i></span>
+                <span class="sidebar-text">Laptop</span>
+            </li>
+            <li class="sidebar-item filter-item" data-category="desktop">
+                <span class="sidebar-icon"><i data-lucide="monitor"></i></span>
+                <span class="sidebar-text">Máy tính bàn</span>
+            </li>
+            <li class="sidebar-item filter-item" data-category="accessory">
+                <span class="sidebar-icon"><i data-lucide="cpu"></i></span>
+                <span class="sidebar-text">Phụ kiện</span>
+            </li>
+            <!-- Giỏ hàng -->
+            <li class="sidebar-item" id="cart-sidebar-trigger" data-page="cart">
+                <span class="sidebar-icon"><i data-lucide="shopping-bag"></i></span>
+                <span class="sidebar-text">Giỏ hàng</span>
+                <span id="sidebar-cart-badge" class="sidebar-badge">0</span>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Sticky Header -->
+    <div class="sticky-nav">
+        <header class="header">
+            <div class="header-left">
+                <div class="logo">
+                    <span class="logo-text">TECH<span class="logo-accent">STORE</span></span>
+                </div>
+            </div>
+            <div class="search-sort">
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Tìm kiếm sản phẩm..." class="search-input">
+                    <button id="search-btn" class="search-btn">⌕</button>
+                </div>
+                <select id="sort-select" class="sort-select">
+                    <option value="default">Mặc định</option>
+                    <option value="price-asc">Giá: Tăng dần</option>
+                    <option value="price-desc">Giá: Giảm dần</option>
+                    <option value="name-asc">Tên: A - Z</option>
+                    <option value="name-desc">Tên: Z - A</option>
+                </select>
+            </div>
+            <div class="header-actions">
+                <div id="user-area"></div>
+            </div>
+        </header>
+    </div>
+
+    <!-- Overlay cho popup chi tiết sản phẩm -->
+    <div id="detail-overlay" class="detail-overlay hidden">
+        <div id="product-popup" class="product-popup detail-modal"></div>
+    </div>
+
+    <div class="app-layout">
+        <aside id="cart-sidebar" class="cart-sidebar">
+            <div class="cart-header">
+                <h2 class="cart-title">Giỏ hàng</h2>
+                <button id="close-cart" class="btn-close-cart">&times;</button>
+            </div>
+            <div id="cart-items" class="cart-items"></div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Tổng tiền:</span>
+                    <span id="cart-total-amount">0 đ</span>
+                </div>
+                <button id="checkout-btn" class="btn-checkout">Thanh toán</button>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <section id="product-grid" class="product-grid"></section>
+            <div id="pagination" class="pagination"></div>
+            <div id="loading-indicator" class="loading"></div>
+        </main>
+    </div>
+
+    <!-- Modal xác nhận thanh toán -->
+    <div id="checkout-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2 class="modal-title">Xác nhận thanh toán</h2>
+            <p class="modal-message">Bạn có chắc chắn muốn thanh toán giỏ hàng?</p>
+            <div class="modal-buttons">
+                <button id="checkout-confirm-btn" class="btn-confirm">Xác nhận</button>
+                <button id="checkout-cancel-btn" class="btn-cancel">Hủy</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal thông báo thành công -->
+    <div id="success-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2 class="modal-title" style="color: var(--neon-green);">✅ Thanh toán thành công!</h2>
+            <p class="modal-message">Cảm ơn bạn đã mua hàng. Đơn hàng đang được xử lý.</p>
+        </div>
+    </div>
+
+    <!-- Overlay cho giỏ hàng -->
+    <div id="cart-overlay" class="cart-overlay"></div>
+
+    <script src="js/effects.js"></script>
+    <script src="js/auth-ui.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
