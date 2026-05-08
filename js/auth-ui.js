@@ -12,7 +12,7 @@ function saveAppState() {
     const appState = {
         selectedCategories: [...state.selectedCategories],
         searchQuery: searchInput ? searchInput.value.trim() : '',
-        sortBy: sortSelect ? sortSelect.value : 'default',
+        sortBy: state.sortBy || 'default',
         isLandingHidden: isLandingHidden
     };
     sessionStorage.setItem('appState', JSON.stringify(appState));
