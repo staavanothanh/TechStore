@@ -2,12 +2,16 @@ import { state } from './state.js';
 import { detailOverlay, productPopup } from './elements.js';
 import { requireAuth } from './auth-ui.js';
 import { addToCart } from './cart.js';
+import { getPriceForSort } from './products.js';
 
 let overlayClickHandler = null;
 let popupClickHandler = null;
 
 export function openProductDetail(product) {
-    const key = product.key;
+    const noBuy = getPriceForSort(product) === Infinity;
+    const dis = noBuy ? 'disabled' : '';
+    const btnText = noBuy ? 'Không thể mua' : 'Thêm vào giỏ';
+
     const html = `
     <button class="modal-close-btn">&times;</button>
     <img src="${product.image}" alt="${product.name}" class="popup-image">
@@ -23,11 +27,11 @@ export function openProductDetail(product) {
     ${product.installment ? `<div class="popup-installment"><strong>Trả góp:</strong> ${product.installment}</div>` : ''}
     ${product.ports ? `<div class="popup-ports"><strong>Cổng kết nối:</strong> ${product.ports}</div>` : ''}
     <div class="quantity-control">
-      <button class="qty-btn qty-minus">-</button>
+      <button class="qty-btn qty-minus" ${dis}>-</button>
       <span class="qty-value" data-qty="1">1</span>
-      <button class="qty-btn qty-plus">+</button>
+      <button class="qty-btn qty-plus" ${dis}>+</button>
     </div>
-    <button class="btn-add-cart detail-add-cart">Thêm vào giỏ</button>
+    <button class="btn-add-cart detail-add-cart" ${dis}>${btnText}</button>
   `;
     productPopup.innerHTML = html;
     detailOverlay.classList.remove('hidden');

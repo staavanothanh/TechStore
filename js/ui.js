@@ -5,7 +5,7 @@ import {
     filterItems,
     landingView       // <-- import landingView
 } from './elements.js';
-import { getProcessedProducts } from './products.js';
+import { getProcessedProducts, getPriceForSort } from './products.js';
 import { handleMouseMove, handleMouseLeave } from './effects.js';
 import { requireAuth } from './auth-ui.js';
 import { addToCart } from './cart.js';
@@ -29,8 +29,14 @@ export function renderPage(pageNumber) {
         return;
     }
 
-    productGrid.innerHTML = pageItems.map(product => `
-    <div class="cyber-card product-card" data-key="${product.key}" data-cat="${product.category}">
+    productGrid.innerHTML = pageItems.map(product => {
+        const noBuy = getPriceForSort(product) === Infinity;
+        const dis = noBuy ? 'disabled' : '';
+        const btnText = noBuy ? 'Không thể mua' : 'Thêm vào giỏ';
+
+        return `
+    <div class="cyber-card product-card ${noBuy ? 'special-price' : ''}" 
+         data-key="${product.key}" data-cat="${product.category}">
       <div class="noise-overlay"></div>
       <div class="cyber-card-inner">
         <img src="${product.image}" alt="${product.name}" class="product-image" loading="lazy">
@@ -41,15 +47,16 @@ export function renderPage(pageNumber) {
         </div>
         <div class="product-actions">
           <div class="quantity-control">
-            <button class="qty-btn qty-minus">-</button>
+            <button class="qty-btn qty-minus" ${dis}>-</button>
             <span class="qty-value" data-qty="1">1</span>
-            <button class="qty-btn qty-plus">+</button>
+            <button class="qty-btn qty-plus" ${dis}>+</button>
           </div>
-          <button class="btn-add-cart">Thêm vào giỏ</button>
+          <button class="btn-add-cart" ${dis}>${btnText}</button>
         </div>
       </div>
     </div>
-  `).join('');
+  `;
+    }).join('');
 
     attachCardEvents();
     renderPagination(totalPages);

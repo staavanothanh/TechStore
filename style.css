@@ -574,6 +574,15 @@ body {
     color: var(--neon-green);
 }
 
+.btn-add-cart:disabled,
+.qty-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-color: #555;
+    color: #888;
+    background: rgba(255, 255, 255, 0.05);
+}
+
 /* ========== PAGINATION ========== */
 .pagination {
     display: flex;

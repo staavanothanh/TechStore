@@ -58,7 +58,7 @@ export async function fetchAllProducts() {
     }
 }
 
-function getPriceForSort(product) {
+export function getPriceForSort(product) {
     const num = parseInt(product.price.replace(/[^\d]/g, ''));
     return isNaN(num) ? Infinity : num;
 }
