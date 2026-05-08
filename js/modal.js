@@ -60,7 +60,7 @@ export function openProductDetail(product) {
         e.stopPropagation();
         if (!requireAuth()) return;
         const quantity = parseInt(qtyValue.dataset.qty) || 1;
-        addToCart(key, quantity);
+        addToCart(product.key, quantity);
         qtyValue.dataset.qty = 1;
         qtyValue.textContent = '1';
         addCartBtn.textContent = 'Đã thêm ✓';
