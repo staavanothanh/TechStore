@@ -64,18 +64,26 @@
                     <span class="logo-text">TECH<span class="logo-accent">STORE</span></span>
                 </div>
             </div>
-            <div class="search-sort">
+            <div class="search-sort sort-hidden">
                 <div class="search-bar">
                     <input type="text" id="search-input" placeholder="Tìm kiếm sản phẩm..." class="search-input">
                     <button id="search-btn" class="search-btn">⌕</button>
                 </div>
-                <select id="sort-select" class="sort-select">
-                    <option value="default">Mặc định</option>
-                    <option value="price-asc">Giá: Tăng dần</option>
-                    <option value="price-desc">Giá: Giảm dần</option>
-                    <option value="name-asc">Tên: A - Z</option>
-                    <option value="name-desc">Tên: Z - A</option>
-                </select>
+                <div class="custom-select-wrapper" id="sort-select-wrapper">
+                    <button type="button" class="custom-select-trigger" id="sort-select-trigger">
+                        <span id="sort-current-text">Mặc định</span>
+                        <svg class="custom-arrow" width="12" height="8" viewBox="0 0 12 8">
+                            <path fill="none" stroke="#00dbe9" stroke-width="2" d="M1 1l5 5 5-5" />
+                        </svg>
+                    </button>
+                    <ul class="custom-options" id="sort-options">
+                        <li class="custom-option" data-value="default">Mặc định</li>
+                        <li class="custom-option" data-value="price-asc">Giá: Tăng dần</li>
+                        <li class="custom-option" data-value="price-desc">Giá: Giảm dần</li>
+                        <li class="custom-option" data-value="name-asc">Tên: A - Z</li>
+                        <li class="custom-option" data-value="name-desc">Tên: Z - A</li>
+                    </ul>
+                </div>
             </div>
             <div class="header-actions">
                 <div id="user-area"></div>
@@ -92,7 +100,7 @@
         <div id="landing-view" class="landing-view">
             <div class="landing-container">
                 <div class="slogan-wrapper">
-                    <h1 class="slogan-text">Sáng Tạo<br>Không Giới Hạn<br>Cùng TechStore.</h1>
+                    <h1 class="slogan-text">Sáng Tạo<br>Không Giới Hạn<br>Cùng TechStore</h1>
                     <button id="explore-btn" class="btn-landing">Khám phá cửa hàng</button>
                 </div>
             </div>

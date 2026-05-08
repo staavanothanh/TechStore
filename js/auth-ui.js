@@ -1,4 +1,9 @@
-import { userArea, searchInput, sortSelect, landingView } from './elements.js';
+import {
+    userArea, searchInput, sortSelectWrapper,
+    sortSelectTrigger,
+    sortOptions,
+    sortCurrentText, landingView
+} from './elements.js';
 import { state } from './state.js';
 
 // Lưu trạng thái hiện tại để khôi phục sau khi đăng nhập

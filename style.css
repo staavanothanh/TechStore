@@ -243,8 +243,102 @@ body {
 }
 
 .search-sort.sort-hidden {
+    display: none;
+}
+
+/* ========== CUSTOM SORT DROPDOWN ========== */
+.custom-select-wrapper {
+    position: relative;
+    min-width: 180px;
+    user-select: none;
+}
+
+.custom-select-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    padding: 10px 14px;
+    background: rgba(2, 8, 23, 0.8);
+    /* nền kính mờ */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 219, 233, 0.3);
+    /* viền neon mảnh */
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: border-color 0.3s;
+    outline: none;
+}
+
+.custom-select-trigger:hover,
+.custom-select-trigger:focus {
+    border-color: var(--beam-color);
+}
+
+.custom-arrow {
+    transition: transform 0.3s ease;
+}
+
+.custom-select-wrapper.open .custom-arrow {
+    transform: rotate(180deg);
+}
+
+.custom-options {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    background: rgba(2, 8, 23, 0.95);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 219, 233, 0.3);
+    border-radius: 8px;
+    list-style: none;
+    padding: 4px 0;
+    margin: 0;
+    box-shadow: 0 8px 20px rgba(0, 219, 233, 0.1);
+    z-index: 200;
+
+    /* Hiệu ứng trượt mở */
+    max-height: 0;
     opacity: 0;
-    pointer-events: none;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s;
+}
+
+.custom-select-wrapper.open .custom-options {
+    max-height: 300px;
+    /* đủ cho 5 option */
+    opacity: 1;
+}
+
+.custom-option {
+    padding: 10px 14px;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, text-shadow 0.2s;
+    border-left: 3px solid transparent;
+}
+
+.custom-option:hover {
+    background: rgba(0, 219, 233, 0.15);
+    color: var(--beam-color);
+    text-shadow: 0 0 8px rgba(0, 219, 233, 0.5);
+    /* Glow row */
+    border-left-color: var(--beam-color);
+}
+
+.custom-option.active {
+    color: var(--beam-color);
+    font-weight: 600;
+    background: rgba(0, 219, 233, 0.1);
 }
 
 .search-bar {
@@ -357,6 +451,7 @@ body {
 
 .product-card {
     height: 420px;
+    overflow: hidden;
 }
 
 .product-image {
@@ -367,6 +462,12 @@ body {
     background: rgba(255, 255, 255, 0.03);
     border-radius: 8px;
     margin-bottom: 12px;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.1);
 }
 
 .product-details {
@@ -560,6 +661,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    padding-right: 15px;
 }
 
 .cart-item {
@@ -641,6 +743,28 @@ body {
     font-weight: 700;
     border-radius: 6px;
     cursor: pointer;
+}
+
+/* ========== CYBER SCROLLBAR ========== */
+#cart-items::-webkit-scrollbar {
+    width: 5px;
+}
+
+#cart-items::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 4px 0;
+}
+
+#cart-items::-webkit-scrollbar-thumb {
+    background-color: #00dbe9;
+    border-radius: 10px;
+    box-shadow: 0 0 8px #00dbe9,
+        0 0 15px rgba(0, 219, 233, 0.6);
+}
+
+#cart-items {
+    scrollbar-width: thin;
+    scrollbar-color: #00dbe9 transparent;
 }
 
 /* ========== LOGIN PAGE ========== */

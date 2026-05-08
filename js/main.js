@@ -4,7 +4,10 @@ import {
     loadingEl,
     searchInput,
     searchBtn,
-    sortSelect,
+    sortSelectWrapper,
+    sortSelectTrigger,
+    sortOptions,
+    sortCurrentText,
     sidebarCartTrigger,
     closeCartBtn,
     navItems,
@@ -31,28 +34,38 @@ const globalNoise = document.querySelector('.global-noise');
 
 if (exploreBtn) {
     exploreBtn.addEventListener('click', () => {
-        // Reset danh mục về "Tất cả"
         state.selectedCategories = [];
-        // Chuyển sang chế độ cửa hàng
         showStoreView();
     });
 }
 
-// ========== HÀM CHUYỂN ĐỔI GIỮA LANDING / STORE ==========
+// ========== HÀM ĐỒNG BỘ SORT UI (CUSTOM DROPDOWN) ==========
+function syncSortUI(sortValue) {
+    if (!sortCurrentText || !sortOptions) return;
+    const value = sortValue || 'default';
+    const target = sortOptions.querySelector(`.custom-option[data-value="${value}"]`);
+    if (target) {
+        sortCurrentText.textContent = target.textContent;
+        sortOptions.querySelectorAll('.custom-option').forEach(opt => opt.classList.remove('active'));
+        target.classList.add('active');
+    }
+}
+
+// ========== HIỂN THỊ STORE ==========
 function showStoreView() {
     if (landingView) {
         landingView.classList.add('hidden');
     }
-    // Hiển thị noise, sort select
     if (globalNoise) globalNoise.style.display = 'block';
-    if (sortSelect) sortSelect.closest('.search-sort')?.classList.remove('sort-hidden');
+    if (sortSelectWrapper) sortSelectWrapper.closest('.search-sort')?.classList.remove('sort-hidden');
 
-    // Bỏ active "Trang chủ" (nếu có)
+    // Bỏ active "Trang chủ"
     navItems.forEach(i => i.classList.remove('active'));
-
     updateFilterUI();
 
-    // Fetch và render nếu cần
+    // Đồng bộ lại hiển thị text sort hiện tại
+    syncSortUI(state.sortBy);
+
     if (state.allProducts.length === 0) {
         fetchAllProducts().then(() => renderPage(1));
     } else {
@@ -60,31 +73,26 @@ function showStoreView() {
     }
 }
 
+// ========== VỀ LANDING ==========
 function goToLanding() {
-    // Reset các bộ lọc
     state.selectedCategories = [];
     state.searchQuery = '';
     if (searchInput) searchInput.value = '';
     state.sortBy = null;
-    if (sortSelect) sortSelect.value = 'default';
-    updateFilterUI();
+    syncSortUI(null);
 
-    // Ẩn sort select
-    if (sortSelect) sortSelect.closest('.search-sort')?.classList.add('sort-hidden');
+    if (sortSelectWrapper) sortSelectWrapper.closest('.search-sort')?.classList.add('sort-hidden');
 
-    // Active "Trang chủ" và bỏ active tất cả filter
     navItems.forEach(i => {
         if (i.dataset.page === 'home') i.classList.add('active');
         else i.classList.remove('active');
     });
-    filterItems.forEach(i => i.classList.remove('active'));   // <-- Đảm bảo không filter nào active
+    filterItems.forEach(i => i.classList.remove('active'));
 
-    // Hiển thị landing view
     if (landingView) {
         landingView.classList.remove('hidden');
         productGrid.innerHTML = '';
         paginationEl.innerHTML = '';
-        // Tắt noise khi ở landing
         if (globalNoise) globalNoise.style.display = 'none';
     }
 }
@@ -93,33 +101,30 @@ if (logo) {
     logo.addEventListener('click', goToLanding);
 }
 
-// ========== KHÔI PHỤC TRẠNG THÁI NẾU VỪA LOGIN XONG ==========
+// ========== KHÔI PHỤC TRẠNG THÁI TỪ LOGIN ==========
 function restoreStateIfNeeded() {
     const redirectUrl = sessionStorage.getItem('redirectAfterLogin');
     const appStateStr = sessionStorage.getItem('appState');
-
-    // Chỉ khôi phục nếu đang quay lại từ login và có lưu trạng thái
     if (!redirectUrl || !appStateStr) return false;
     if (!redirectUrl.includes('index.html')) return false;
 
     try {
         const appState = JSON.parse(appStateStr);
-        // Khôi phục state
         state.selectedCategories = appState.selectedCategories || [];
         state.searchQuery = appState.searchQuery || '';
         if (searchInput) searchInput.value = state.searchQuery;
+
         state.sortBy = (appState.sortBy && appState.sortBy !== 'default') ? appState.sortBy : null;
-        if (sortSelect) sortSelect.value = appState.sortBy || 'default';
+        syncSortUI(state.sortBy);
+
         updateFilterUI();
 
         if (appState.isLandingHidden) {
-            // Người dùng đang ở store view
             showStoreView();
         } else {
             goToLanding();
         }
 
-        // Xóa dữ liệu đã dùng
         sessionStorage.removeItem('redirectAfterLogin');
         sessionStorage.removeItem('appState');
         return true;
@@ -133,17 +138,15 @@ function restoreStateIfNeeded() {
 updateAuthUI();
 updateCartUI();
 
-// Nếu không có landing view thì lazy load như cũ
 if (!landingView) {
     initLazyLoad();
 } else {
-    // Cố gắng khôi phục trạng thái từ login, nếu không thì mặc định landing
     if (!restoreStateIfNeeded()) {
         goToLanding();
     }
 }
 
-// ========== LAZY LOADING (chỉ khi không có landing) ==========
+// ========== LAZY LOADING ==========
 function initLazyLoad() {
     const observer = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && state.allProducts.length === 0) {
@@ -180,13 +183,10 @@ navItems.forEach(item => {
 filterItems.forEach(item => {
     item.addEventListener('click', () => {
         const cat = item.dataset.category;
-
-        // Nếu đang ở landing, chuyển sang store
         if (landingView && !landingView.classList.contains('hidden')) {
             showStoreView();
         }
 
-        // Xử lý category
         if (cat === 'all') {
             state.selectedCategories = [];
         } else {
@@ -231,7 +231,7 @@ checkoutModal.addEventListener('click', (e) => {
     if (e.target === checkoutModal) checkoutModal.classList.add('hidden');
 });
 
-// ========== SEARCH & SORT ==========
+// ========== SEARCH ==========
 let searchTimeout;
 function performSearch() {
     state.searchQuery = searchInput.value.trim();
@@ -247,13 +247,33 @@ searchInput.addEventListener('input', () => {
     searchTimeout = setTimeout(performSearch, 100);
 });
 
-sortSelect.addEventListener('change', () => {
-    const val = sortSelect.value;
-    state.sortBy = val === 'default' ? null : val;
+// ========== CUSTOM SORT DROPDOWN ==========
+sortSelectTrigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    sortSelectWrapper.classList.toggle('open');
+});
+
+sortOptions.addEventListener('click', (e) => {
+    const option = e.target.closest('.custom-option');
+    if (!option) return;
+
+    const value = option.dataset.value;
+    state.sortBy = (value === 'default') ? null : value;
+    syncSortUI(state.sortBy);
+
     if (landingView && !landingView.classList.contains('hidden')) {
         showStoreView();
     }
     renderPage(1);
+
+    sortSelectWrapper.classList.remove('open');
+});
+
+// Đóng dropdown khi click bên ngoài
+document.addEventListener('click', (e) => {
+    if (!sortSelectWrapper.contains(e.target)) {
+        sortSelectWrapper.classList.remove('open');
+    }
 });
 
 // ========== ĐÓNG GIỎ HÀNG KHI CLICK RA NGOÀI ==========
