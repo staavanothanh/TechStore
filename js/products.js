@@ -58,6 +58,11 @@ export async function fetchAllProducts() {
     }
 }
 
+function getPriceForSort(product) {
+    const num = parseInt(product.price.replace(/[^\d]/g, ''));
+    return isNaN(num) ? Infinity : num;
+}
+
 // Lọc, sắp xếp và trả về danh sách sẽ hiển thị
 export function getProcessedProducts() {
     let source = state.sortBy ? [...state.allProducts] : [...state.shuffledProducts];
@@ -73,10 +78,10 @@ export function getProcessedProducts() {
     if (state.sortBy) {
         switch (state.sortBy) {
             case 'price-asc':
-                source.sort((a, b) => parseInt(a.price.replace(/[^\d]/g, '')) - parseInt(b.price.replace(/[^\d]/g, '')));
+                source.sort((a, b) => getPriceForSort(a) - getPriceForSort(b));
                 break;
             case 'price-desc':
-                source.sort((a, b) => parseInt(b.price.replace(/[^\d]/g, '')) - parseInt(a.price.replace(/[^\d]/g, '')));
+                source.sort((a, b) => getPriceForSort(b) - getPriceForSort(a));
                 break;
             case 'name-asc':
                 source.sort((a, b) => a.name.localeCompare(b.name));
